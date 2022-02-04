@@ -18,7 +18,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "orders")
-data class OrderDBO(
+data class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)

@@ -19,7 +19,7 @@ class OrderRepositoryTest {
             customerRepository.save(it)
         }
 
-        OrderDBO(
+        Order(
             customer = customer,
             originalValue = 100.toBigDecimal()
         ).apply {

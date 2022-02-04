@@ -2,7 +2,7 @@ package br.com.amz.peekpay.integration
 
 import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.customer.CustomerRepository
-import br.com.amz.peekpay.persistence.order.OrderDBO
+import br.com.amz.peekpay.persistence.order.Order
 import br.com.amz.peekpay.usecase.PeekPayService
 import br.com.amz.peekpay.usecase.order.OrderService
 import br.com.amz.peekpay.usecase.payment.ApplicablePayment
@@ -25,7 +25,7 @@ class PeekPayServiceIntegratedTest {
             customerRepository.save(it)
         }
 
-        val order = OrderDBO(
+        val order = Order(
             customer = customer,
             originalValue = 50.toBigDecimal()
         ).let {
@@ -52,7 +52,7 @@ class PeekPayServiceIntegratedTest {
             customerRepository.save(it)
         }
 
-        val order = OrderDBO(
+        val order = Order(
             customer = customer,
             originalValue = 50.toBigDecimal()
         )
@@ -70,7 +70,7 @@ class PeekPayServiceIntegratedTest {
             customerRepository.save(it)
         }
 
-        OrderDBO(
+        Order(
             customer = customer,
             originalValue = 50.toBigDecimal()
         ).let {

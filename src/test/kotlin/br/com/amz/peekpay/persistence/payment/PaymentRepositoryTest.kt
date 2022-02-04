@@ -2,7 +2,7 @@ package br.com.amz.peekpay.persistence.payment
 
 import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.customer.CustomerRepository
-import br.com.amz.peekpay.persistence.order.OrderDBO
+import br.com.amz.peekpay.persistence.order.Order
 import br.com.amz.peekpay.persistence.order.OrderRepository
 import equalsTo
 import org.junit.jupiter.api.Test
@@ -23,7 +23,7 @@ class PaymentRepositoryTest {
             customerRepository.save(it)
         }
 
-        val order = OrderDBO(
+        val order = Order(
             customer = customer,
             originalValue = 100.toBigDecimal()
         ).let {
@@ -48,7 +48,7 @@ class PaymentRepositoryTest {
             customerRepository.save(it)
         }
 
-        val order = OrderDBO(
+        val order = Order(
             customer = customer,
             originalValue = 100.toBigDecimal()
         ).let {

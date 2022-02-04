@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface OrderRepository : CrudRepository<OrderDBO, UUID> {
+interface OrderRepository : CrudRepository<Order, UUID> {
 
-    @Query("select o from OrderDBO o where o.customer.id = :customerId")
-    fun findByCustomer(customerId: UUID): OrderDBO?
+    @Query("select o from Order o where o.customer.id = :customerId")
+    fun findByCustomer(customerId: UUID): Order?
 }

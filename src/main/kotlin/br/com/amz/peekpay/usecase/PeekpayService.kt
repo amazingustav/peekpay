@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.usecase
 
-import br.com.amz.peekpay.persistence.order.OrderDBO
+import br.com.amz.peekpay.persistence.order.Order
 import br.com.amz.peekpay.persistence.payment.PaymentDBO
 import br.com.amz.peekpay.usecase.customer.CustomerService
 import br.com.amz.peekpay.usecase.exception.OrderNotFoundException
@@ -37,7 +37,7 @@ class PeekPayService(
 
     /** create_order_and_pay */
     @Transactional
-    fun createOrderAndPay(order: OrderDBO, paymentValue: BigDecimal): OrderDBO {
+    fun createOrderAndPay(order: Order, paymentValue: BigDecimal): Order {
         val createdOrder = orderService.createOrder(order)
 
         return PaymentDBO(
@@ -50,7 +50,7 @@ class PeekPayService(
     }
 
     /** get_orders_for_customer */
-    fun getOrdersForCustomer(customerEmail: String): OrderDBO? {
+    fun getOrdersForCustomer(customerEmail: String): Order? {
         val customer = customerService.getCustomerByEmail(customerEmail) ?: return null
 
         return orderService.getOrderByCustomer(customer.id)

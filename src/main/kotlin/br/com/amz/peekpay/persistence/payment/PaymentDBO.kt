@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.persistence.payment
 
-import br.com.amz.peekpay.persistence.order.OrderDBO
+import br.com.amz.peekpay.persistence.order.Order
 import java.math.BigDecimal
 import java.util.UUID
 import javax.persistence.Column
@@ -26,7 +26,7 @@ data class PaymentDBO(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
-    val order: OrderDBO,
+    val order: Order,
 
     @Column(name = "idempotency_key", updatable = false, unique = true)
     val idempotencyKey: UUID? = null
