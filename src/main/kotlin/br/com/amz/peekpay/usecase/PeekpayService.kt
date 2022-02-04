@@ -19,9 +19,9 @@ class PeekPayService(
 ) {
     /** apply_payment_to_order */
     fun applyPaymentToOrder(applicablePayment: ApplicablePayment): Payment? {
-        val lockedPayment = paymentService.isPaymentLocked(applicablePayment.idempotencyKey)
+        val isPaymentLocked = paymentService.isPaymentLocked(applicablePayment.idempotencyKey)
 
-        if (lockedPayment) return null
+        if (isPaymentLocked) return null
 
         val order = orderService.getOrder(applicablePayment.orderId)
             ?: throw OrderNotFoundException("Order not found for the id ${applicablePayment.orderId}")
