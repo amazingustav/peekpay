@@ -15,7 +15,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "payments")
-data class PaymentDBO(
+data class Payment (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)

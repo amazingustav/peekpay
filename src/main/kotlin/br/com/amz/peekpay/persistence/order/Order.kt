@@ -1,7 +1,7 @@
 package br.com.amz.peekpay.persistence.order
 
 import br.com.amz.peekpay.persistence.customer.Customer
-import br.com.amz.peekpay.persistence.payment.PaymentDBO
+import br.com.amz.peekpay.persistence.payment.Payment
 import java.math.BigDecimal
 import java.util.UUID
 import javax.persistence.CascadeType
@@ -34,5 +34,5 @@ data class Order (
     var balance: BigDecimal? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "order", fetch = FetchType.EAGER)
-    val payments: List<PaymentDBO> = emptyList()
+    val payments: List<Payment> = emptyList()
 )

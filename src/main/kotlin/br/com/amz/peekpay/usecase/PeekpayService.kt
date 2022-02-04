@@ -1,7 +1,7 @@
 package br.com.amz.peekpay.usecase
 
 import br.com.amz.peekpay.persistence.order.Order
-import br.com.amz.peekpay.persistence.payment.PaymentDBO
+import br.com.amz.peekpay.persistence.payment.Payment
 import br.com.amz.peekpay.usecase.customer.CustomerService
 import br.com.amz.peekpay.usecase.exception.OrderNotFoundException
 import br.com.amz.peekpay.usecase.order.OrderService
@@ -18,7 +18,7 @@ class PeekPayService(
     private val paymentService: PaymentService
 ) {
     /** apply_payment_to_order */
-    fun applyPaymentToOrder(applicablePayment: ApplicablePayment): PaymentDBO? {
+    fun applyPaymentToOrder(applicablePayment: ApplicablePayment): Payment? {
         val lockedPayment = paymentService.isPaymentLocked(applicablePayment.idempotencyKey)
 
         if (lockedPayment) return null
@@ -26,7 +26,7 @@ class PeekPayService(
         val order = orderService.getOrder(applicablePayment.orderId)
             ?: throw OrderNotFoundException("Order not found for the id ${applicablePayment.orderId}")
 
-        return PaymentDBO(
+        return Payment(
             amount = applicablePayment.amount,
             order = order,
             idempotencyKey = applicablePayment.idempotencyKey
@@ -40,7 +40,7 @@ class PeekPayService(
     fun createOrderAndPay(order: Order, paymentValue: BigDecimal): Order {
         val createdOrder = orderService.createOrder(order)
 
-        return PaymentDBO(
+        return Payment(
             amount = paymentValue,
             order = createdOrder
         ).let {

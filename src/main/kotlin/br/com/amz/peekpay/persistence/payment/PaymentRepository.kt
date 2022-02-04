@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface PaymentRepository : CrudRepository<PaymentDBO, UUID> {
+interface PaymentRepository : CrudRepository<Payment, UUID> {
 
-    @Query("select p from PaymentDBO p where p.order.id = :orderId")
-    fun findByOrderId(orderId: UUID): List<PaymentDBO>
+    @Query("select p from Payment p where p.order.id = :orderId")
+    fun findByOrderId(orderId: UUID): List<Payment>
 
-    @Query("select p from PaymentDBO p where p.idempotencyKey = :idempotencyKey")
-    fun findByIdempotencyKey(idempotencyKey: UUID): PaymentDBO?
+    @Query("select p from Payment p where p.idempotencyKey = :idempotencyKey")
+    fun findByIdempotencyKey(idempotencyKey: UUID): Payment?
 }

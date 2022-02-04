@@ -30,7 +30,7 @@ class PaymentRepositoryTest {
             orderRepository.save(it)
         }
 
-        PaymentDBO(
+        Payment(
             amount = 10.toBigDecimal(),
             order = order
         ).apply {
@@ -57,7 +57,7 @@ class PaymentRepositoryTest {
 
         val idempotencyKey = UUID.randomUUID()
 
-        PaymentDBO(
+        Payment(
             amount = 10.toBigDecimal(),
             order = order,
             idempotencyKey = idempotencyKey

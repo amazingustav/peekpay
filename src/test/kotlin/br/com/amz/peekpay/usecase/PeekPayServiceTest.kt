@@ -2,7 +2,7 @@ package br.com.amz.peekpay.usecase
 
 import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.order.Order
-import br.com.amz.peekpay.persistence.payment.PaymentDBO
+import br.com.amz.peekpay.persistence.payment.Payment
 import br.com.amz.peekpay.usecase.customer.CustomerService
 import br.com.amz.peekpay.usecase.order.OrderService
 import br.com.amz.peekpay.usecase.payment.ApplicablePayment
@@ -35,7 +35,7 @@ class PeekPayServiceTest {
 		balance = 200.toBigDecimal()
 	)
 
-	private val payment = PaymentDBO(amount = 100.toBigDecimal(), order = order)
+	private val payment = Payment(amount = 100.toBigDecimal(), order = order)
 
 	private val orderWithPayments = order.copy(payments = listOf(payment))
 
@@ -47,7 +47,7 @@ class PeekPayServiceTest {
 
 		service.createOrderAndPay(order, 100.toBigDecimal())
 
-		val paymentSlot = slot<PaymentDBO>()
+		val paymentSlot = slot<Payment>()
 
 		verify(exactly = 1) { orderService.createOrder(any()) }
 		verify(exactly = 1) { paymentService.createPayment(capture(paymentSlot)) }

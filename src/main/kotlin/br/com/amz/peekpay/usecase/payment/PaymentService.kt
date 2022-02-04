@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.usecase.payment
 
-import br.com.amz.peekpay.persistence.payment.PaymentDBO
+import br.com.amz.peekpay.persistence.payment.Payment
 import br.com.amz.peekpay.persistence.payment.PaymentRepository
 import br.com.amz.peekpay.usecase.order.OrderService
 import org.springframework.stereotype.Service
@@ -14,7 +14,7 @@ class PaymentService(
 ) {
 
     @Transactional
-    fun createPayment(payment: PaymentDBO): PaymentDBO = repository.save(payment).let {
+    fun createPayment(payment: Payment): Payment = repository.save(payment).let {
         orderService.decreaseBalanceWithPayment(it.amount, it.order.id)
         it
     }
