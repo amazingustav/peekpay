@@ -18,18 +18,14 @@ class OrderService(private val repository: OrderRepository) {
     fun getOrderByCustomer(customerId: UUID): Order? = repository.findByCustomer(customerId)
 
     fun decreaseBalanceWithPayment(paymentAmount: BigDecimal, orderId: UUID) {
-        repository.findById(orderId).apply {
-            if (this.isPresent) {
-                val order = this.get()
-
-                order.balance = if (order.balance == null) {
-                    order.originalValue.minus(paymentAmount)
-                } else {
-                    order.balance?.minus(paymentAmount)
-                }
-
-                repository.save(order)
+        repository.findById(orderId).ifPresent {
+            it.balance = if (it.balance == null) {
+                it.originalValue.minus(paymentAmount)
+            } else {
+                it.balance?.minus(paymentAmount)
             }
+
+            repository.save(it)
         }
     }
 }
