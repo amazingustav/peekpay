@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.usecase
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.order.OrderDBO
 import br.com.amz.peekpay.persistence.payment.PaymentDBO
 import br.com.amz.peekpay.usecase.customer.CustomerService
@@ -28,7 +28,7 @@ class PeekPayServiceTest {
 	@MockK private lateinit var customerService: CustomerService
 
 	private val order = OrderDBO(
-		customer = CustomerDBO(
+		customer = Customer(
 			email = "john@doe.co"
 		),
 		originalValue = 1000.toBigDecimal(),

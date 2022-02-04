@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.integration
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.customer.CustomerRepository
 import br.com.amz.peekpay.persistence.order.OrderDBO
 import br.com.amz.peekpay.usecase.PeekPayService
@@ -21,7 +21,7 @@ class PeekPayServiceIntegratedTest {
 
     @Test
     fun `should apply a payment for an order`() {
-        val customer = CustomerDBO(email = "").let {
+        val customer = Customer(email = "").let {
             customerRepository.save(it)
         }
 
@@ -48,7 +48,7 @@ class PeekPayServiceIntegratedTest {
 
     @Test
     fun `should create an order and pay it right after`() {
-        val customer = CustomerDBO(email = "").let {
+        val customer = Customer(email = "").let {
             customerRepository.save(it)
         }
 
@@ -66,7 +66,7 @@ class PeekPayServiceIntegratedTest {
 
     @Test
     fun `should get order for a customer when filter by customer's email address`() {
-        val customer = CustomerDBO(email = "").let {
+        val customer = Customer(email = "").let {
             customerRepository.save(it)
         }
 

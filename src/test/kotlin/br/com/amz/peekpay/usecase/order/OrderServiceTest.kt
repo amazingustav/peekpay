@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.usecase.order
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.order.OrderDBO
 import br.com.amz.peekpay.persistence.order.OrderRepository
 import equalsTo
@@ -25,7 +25,7 @@ class OrderServiceTest {
         val paymentAmount = 10.toBigDecimal()
 
         val order = OrderDBO(
-            customer = CustomerDBO(email = "test@test.co"),
+            customer = Customer(email = "test@test.co"),
             originalValue = 50.toBigDecimal()
         )
 

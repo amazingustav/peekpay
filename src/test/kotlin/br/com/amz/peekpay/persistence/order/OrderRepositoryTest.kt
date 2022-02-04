@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.persistence.order
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.customer.CustomerRepository
 import equalsTo
 import org.junit.jupiter.api.Test
@@ -15,7 +15,7 @@ class OrderRepositoryTest {
 
     @Test
     fun `should create an order and find it by its customer's email`() {
-        val customer = CustomerDBO(email = "test@test.co").let {
+        val customer = Customer(email = "test@test.co").let {
             customerRepository.save(it)
         }
 

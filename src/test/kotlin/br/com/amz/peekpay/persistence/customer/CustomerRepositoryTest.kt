@@ -11,7 +11,7 @@ class CustomerRepositoryTest {
 
     @Test
     fun `should create a new customer and find it by its email`() {
-        val customer = CustomerDBO(email = "test1@test.co")
+        val customer = Customer(email = "test1@test.co")
 
         repository.save(customer)
         val createdCustomer = repository.findByEmail(customer.email)!!

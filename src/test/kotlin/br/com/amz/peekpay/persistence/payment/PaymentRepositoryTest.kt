@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.persistence.payment
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.customer.CustomerRepository
 import br.com.amz.peekpay.persistence.order.OrderDBO
 import br.com.amz.peekpay.persistence.order.OrderRepository
@@ -19,7 +19,7 @@ class PaymentRepositoryTest {
 
     @Test
     fun `should create a payment and find it by its order`() {
-        val customer = CustomerDBO(email = "test@test.co").let {
+        val customer = Customer(email = "test@test.co").let {
             customerRepository.save(it)
         }
 
@@ -44,7 +44,7 @@ class PaymentRepositoryTest {
 
     @Test
     fun `should create a payment and find it by its idempotency key`() {
-        val customer = CustomerDBO(email = "test@test.co").let {
+        val customer = Customer(email = "test@test.co").let {
             customerRepository.save(it)
         }
 

@@ -1,6 +1,6 @@
 package br.com.amz.peekpay.persistence.order
 
-import br.com.amz.peekpay.persistence.customer.CustomerDBO
+import br.com.amz.peekpay.persistence.customer.Customer
 import br.com.amz.peekpay.persistence.payment.PaymentDBO
 import java.math.BigDecimal
 import java.util.UUID
@@ -26,7 +26,7 @@ data class OrderDBO(
 
     @OneToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    val customer: CustomerDBO,
+    val customer: Customer,
 
     @Column(name = "original_value", nullable = false)
     val originalValue: BigDecimal,

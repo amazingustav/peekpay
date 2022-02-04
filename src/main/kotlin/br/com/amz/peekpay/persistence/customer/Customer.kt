@@ -10,7 +10,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "customers")
-data class CustomerDBO(
+data class Customer (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)
