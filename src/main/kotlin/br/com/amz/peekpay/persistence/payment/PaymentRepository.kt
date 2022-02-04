@@ -10,4 +10,7 @@ interface PaymentRepository : CrudRepository<PaymentDBO, UUID> {
 
     @Query("select p from PaymentDBO p where p.order.id = :orderId")
     fun findByOrderId(orderId: UUID): List<PaymentDBO>
+
+    @Query("select p from PaymentDBO p where p.idempotencyKey = :idempotencyKey")
+    fun findByIdempotencyKey(idempotencyKey: UUID): PaymentDBO?
 }

@@ -14,7 +14,7 @@ data class CustomerDBO(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
 
     val email: String
 )

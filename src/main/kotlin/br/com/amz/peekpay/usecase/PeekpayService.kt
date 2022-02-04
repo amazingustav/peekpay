@@ -18,8 +18,11 @@ class PeekPayService(
     private val paymentService: PaymentService
 ) {
     /** apply_payment_to_order */
-    fun applyPaymentToOrder(applicablePayment: ApplicablePayment): PaymentDBO {
-        //TODO: lock by idempotencyKey or use Semaphores
+    fun applyPaymentToOrder(applicablePayment: ApplicablePayment): PaymentDBO? {
+        val lockedPayment = paymentService.isPaymentLocked(applicablePayment.idempotencyKey)
+
+        if (lockedPayment) return null
+
         val order = orderService.getOrder(applicablePayment.orderId)
             ?: throw OrderNotFoundException("Order not found for the id ${applicablePayment.orderId}")
 
@@ -34,19 +37,15 @@ class PeekPayService(
 
     /** create_order_and_pay */
     @Transactional
-    fun createOrderAndPay(order: OrderDBO, paymentValue: BigDecimal) {
-        val balance = order.originalValue.let {
-            if (paymentValue <= it) it - paymentValue else it
-        }
-
-        val createdOrder = orderService.createOrder(order.copy(balance = balance))
+    fun createOrderAndPay(order: OrderDBO, paymentValue: BigDecimal): OrderDBO {
+        val createdOrder = orderService.createOrder(order)
 
         return PaymentDBO(
             amount = paymentValue,
             order = createdOrder
         ).let {
             paymentService.createPayment(it)
-            orderService.getOrder(createdOrder.id)
+            orderService.getOrder(createdOrder.id)!!
         }
     }
 

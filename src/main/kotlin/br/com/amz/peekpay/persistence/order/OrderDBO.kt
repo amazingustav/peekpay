@@ -22,17 +22,17 @@ data class OrderDBO(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "customer_id", nullable = false)
     val customer: CustomerDBO,
 
     @Column(name = "original_value", nullable = false)
     val originalValue: BigDecimal,
 
-    val balance: BigDecimal,
+    var balance: BigDecimal? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "order")
-    val payments: List<PaymentDBO>
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "order", fetch = FetchType.EAGER)
+    val payments: List<PaymentDBO> = emptyList()
 )
