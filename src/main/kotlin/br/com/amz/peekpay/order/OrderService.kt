@@ -1,42 +1,33 @@
 package br.com.amz.peekpay.order
 
-import br.com.amz.peekpay.createDefaultOrder
-import br.com.amz.peekpay.payment.Payment
+import br.com.amz.peekpay.payment.PaymentService
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.util.UUID
 
 @Service
-class OrderService {
+class OrderService(
+    private val paymentService: PaymentService,
+    private val repository: OrderRepository
+) {
 
-    /**
-     * create_order
-     * */
-    fun createOrder(order: Order) {
-        //TODO: create an order without making an initial payment
-    }
+    /** create_order */
+    fun createOrder(order: Order): UUID = repository.create(order)
 
-    /**
-     * get_order
-     * */
-    fun getOrder(orderId: UUID): Order {
-        //TODO: it should return any payments applied to it as well
+    /** get_order */
+    fun getOrder(orderId: UUID): OrderPayments = repository.findById(orderId)
 
-        return createDefaultOrder()
-    }
+    /** get_orders_for_customer */
+    fun getOrderByCustomer(customerEmail: String): Order = repository.findByCustomerEmail(customerEmail)
 
-    /**
-     * get_orders_for_customer
-     * */
-    fun getOrderByCustomer(customerEmail: String): Order {
-        //TODO: return all customer's order
+    /** create_order_and_pay */
+    fun createOrderAndPay(order: Order, paymentValue: BigDecimal) {
+        val balance = order.originalValue.let {
+            if (paymentValue <= it) it - paymentValue else it
+        }
 
-        return createDefaultOrder()
-    }
-
-    /**
-     * create_order_and_pay
-     * */
-    fun createOrderAndPay(order: Order, payment: Payment) {
-        //TODO: it should be transactional. One depends on another
+        //TODO: this block must to be transactional
+        val createdOrderId = createOrder(order.copy(balance = balance))
+        paymentService.createPayment(paymentValue, createdOrderId)
     }
 }
