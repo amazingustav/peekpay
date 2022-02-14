@@ -21,7 +21,7 @@ import javax.persistence.Table
 data class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(columnDefinition = "BINARY(16)", nullable = false, updatable = false, unique = true)
     val id: UUID = UUID.randomUUID(),
 
     @OneToOne

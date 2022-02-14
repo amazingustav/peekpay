@@ -18,7 +18,7 @@ import javax.persistence.Table
 data class Payment (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(columnDefinition = "BINARY(16)", nullable = false, updatable = false, unique = true)
     val id: UUID = UUID.randomUUID(),
 
     @Column(nullable = false)
@@ -28,6 +28,6 @@ data class Payment (
     @JoinColumn(name="order_id")
     val order: Order,
 
-    @Column(name = "idempotency_key", updatable = false, unique = true)
+    @Column(columnDefinition = "BINARY(16)", name = "idempotency_key", updatable = false, unique = true)
     val idempotencyKey: UUID? = null
 )
